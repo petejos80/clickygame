@@ -38,7 +38,8 @@ clickHandler= (id) => {
     this.setState({
       cards: this.shuffleData(newCards),
       score: this.state.score + 1
-    })
+    },
+  console.log(this.state.score))
     // Set state to increment score and reshuffle cards
   }
 
@@ -47,7 +48,8 @@ clickHandler= (id) => {
     this.setState({
       cards: this.shuffleData(newCards),
       score: 0
-    })
+    },
+  console.log(this.state.score))
     // Set state to 0 score and reshuffle cards
   }
 
