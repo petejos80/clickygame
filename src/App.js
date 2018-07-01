@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ImageCard from "./components/ImageCard";
 import Wrapper from "./components/Wrapper";
+import Navbar from "./components/Navbar";
 import cards from "./cards.json";
 import "./App.css";
 
@@ -68,6 +69,13 @@ clickHandler= (id) => {
   // Map over this.state.cards and render a FriendCard component for each friend object
   render() {
     return (
+      <div>
+        <div>
+        <Navbar
+          score={this.state.score}
+          topScore={this.state.topScore}
+        />
+        </div>
       <Wrapper>
         {this.state.cards.map(card => (
           <ImageCard
@@ -79,6 +87,7 @@ clickHandler= (id) => {
           />
         ))}
       </Wrapper>
+      </div>
     );
   }
 }
