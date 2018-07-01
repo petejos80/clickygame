@@ -2,9 +2,9 @@ import React from "react";
 import "./ImageCard.css";
 
 const ImageCard = props => (
-  <div className="card">
+  <div className="card" onClick={() => props.clicker(props.id)}>
     <div className="img-container">
-      <img alt={props.name} src={props.image} />
+      <img alt={props.id} src={props.image} />
     </div>
   </div>
 );
