@@ -9,8 +9,17 @@ class App extends Component {
   // Setting this.state.cards to the cards json array
   state = {
     cards,
-    score: 0
+    score: 0,
+    highscore: 0
   };
+
+topScore = () => {
+  if (this.state.score > this.state.highscore) {
+    this.setState({highscore: this.state.score}, function() {
+      console.log(this.state.highscore);
+    });
+  }
+}
 
 clickHandler= (id) => {
   console.log("Clickhandler", id)
@@ -21,24 +30,22 @@ clickHandler= (id) => {
       if (card.clicked) {
         // If already clicked, restart game and reshuffle images
         card.clicked = false;
-        this.incorrectGuess (newCards)
+        this.incorrectGuess(newCards);
       } else {
         // If not clicked, set clicked value to true, then reshuffle images, incremement score 
         card.clicked = true;
-        this.correctGuess (newCards)
+        this.correctGuess (newCards);
       }
     }
   }
   )
-  // If already clicked, restart game and reshuffle images
-  // If not clicked, set clicked value to true, then reshuffle images, incremement score 
 }
 
   correctGuess = (newCards) => {
     // Correct guess function
     this.setState({
       cards: this.shuffleData(newCards),
-      score: this.state.score + 1
+      score: this.state.score + 1,
     },
   console.log(this.state.score))
     // Set state to increment score and reshuffle cards
@@ -48,23 +55,23 @@ clickHandler= (id) => {
     // Incorrect guess function
     this.setState({
       cards: this.shuffleData(newCards),
-      score: 0
+      score: 0,
     },
-  console.log(this.state.score))
-    // Set state to 0 score and reshuffle cards
+  )
+  this.topScore()
   }
 
-    shuffleData = data => {
-      let i = data.length - 1;
-      while (i > 0) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = data[i];
-        data[i] = data[j];
-        data[j] = temp;
-        i--;
-      }
-      return data;
-    };
+  shuffleData = data => {
+    let i = data.length - 1;
+    while (i > 0) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = data[i];
+      data[i] = data[j];
+      data[j] = temp;
+      i--;
+    }
+    return data;
+  };
 
   // Map over this.state.cards and render a FriendCard component for each friend object
   render() {
@@ -73,7 +80,7 @@ clickHandler= (id) => {
         <div>
         <Navbar
           score={this.state.score}
-          topScore={this.state.topScore}
+          highscore={this.state.highscore}
         />
         </div>
       <Wrapper>
@@ -93,3 +100,5 @@ clickHandler= (id) => {
 }
 
 export default App;
+
+
