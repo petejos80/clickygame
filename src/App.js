@@ -23,40 +23,37 @@ topScore = () => {
 
 clickHandler= (id) => {
   console.log("Clickhandler", id)
-  const newCards = [...this.state.cards]
+  console.log(this.state.cards)
+  // const newCards = [...this.state.cards]
   // Check if to see if card has already been clicked
-  newCards.forEach(card => {
-    if (card.id === id){
-      if (card.clicked) {
-        // If already clicked, restart game and reshuffle images
-        card.clicked = false;
-        this.incorrectGuess(newCards);
-      } else {
-        // If not clicked, set clicked value to true, then reshuffle images, incremement score 
-        card.clicked = true;
-        this.correctGuess (newCards);
-      }
-    }
+  const card = this.state.cards.find(card => card.id === id)
+  if (card.clicked) {
+    this.setState({cards: this.state.cards.map(card => card.id === id ? ({...card, clicked: false}) : card)}, this.incorrectGuess)
+
+  } else {
+    this.setState({cards: this.state.cards.map(card => card.id === id ? ({...card, clicked: true}) : card)}, this.correctGuess)
   }
-  )
+
+
 }
 
-  correctGuess = (newCards) => {
+  correctGuess = () => {
     // Correct guess function
     this.setState({
-      cards: this.shuffleData(newCards),
+      cards: this.shuffleData(this.state.cards),
       score: this.state.score + 1,
     },
   console.log(this.state.score))
     // Set state to increment score and reshuffle cards
   }
 
-  incorrectGuess = (newCards) => {
+  incorrectGuess = () => {
     // Incorrect guess function
     this.setState({
-      cards: this.shuffleData(newCards),
+      cards: this.shuffleData(this.state.cards).map(card => ({...card, clicked: false})),
+
       score: 0,
-    },
+    },() => console.log('cards were just shuffled! ', this.state.cards)
   )
   this.topScore()
   }
