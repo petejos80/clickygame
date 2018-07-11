@@ -24,17 +24,14 @@ topScore = () => {
 clickHandler= (id) => {
   console.log("Clickhandler", id)
   console.log(this.state.cards)
-  // const newCards = [...this.state.cards]
+
   // Check if to see if card has already been clicked
   const card = this.state.cards.find(card => card.id === id)
   if (card.clicked) {
     this.setState({cards: this.state.cards.map(card => card.id === id ? ({...card, clicked: false}) : card)}, this.incorrectGuess)
-
   } else {
     this.setState({cards: this.state.cards.map(card => card.id === id ? ({...card, clicked: true}) : card)}, this.correctGuess)
   }
-
-
 }
 
   correctGuess = () => {
@@ -43,6 +40,7 @@ clickHandler= (id) => {
       cards: this.shuffleData(this.state.cards),
       score: this.state.score + 1,
     },
+
   console.log(this.state.score))
     // Set state to increment score and reshuffle cards
   }
@@ -51,9 +49,8 @@ clickHandler= (id) => {
     // Incorrect guess function
     this.setState({
       cards: this.shuffleData(this.state.cards).map(card => ({...card, clicked: false})),
-
       score: 0,
-    },() => console.log('cards were just shuffled! ', this.state.cards)
+    },() => alert("You Lose! Try again to beat your high score!")
   )
   this.topScore()
   }
